@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Animated topbar</title>
+
+    <style>
+        * {
+            margin: 0;
+        }
+        #two {
+            position:absolute;
+            background-color: #888;
+            height: 300px;
+            width:80%;
+            margin: 0px 50px 0px 50px;
+            padding-top: 200px;
+        }
+
+        #one {
+            z-index: 10;
+            position: fixed;
+            background-color: #222;
+            color: #ddd;
+            height: 100px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .one-grow {
+            animation-name: grow;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes grow {
+            from {height: 50px;}
+            to {height: 100px;}
+        }
+
+        .one-shrink {
+            animation-name: shrink;
+            animation-duration: 0.3s;
+            animation-fill-mode: forwards;
+        }
+        @keyframes shrink {
+            from {height: 100px;}
+            to {height: 50px;}
+        }
+    </style>
+</head>
+
+<body style="height:2000px;" onscroll="scrollPage()">
+    <div id="one">My animated topbar</div>
+    <div id="two">Content</div>
+
+
+    <script>
+        var scrollElm = document.scrollingElement;
+        var one = document.getElementById("one");
+
+        function scrollPage() {
+            console.log(scrollElm.scrollTop);
+            if (scrollElm.scrollTop > 0) {
+                return one.className = "one-shrink";
+            } else {
+                return one.className = "one-grow";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

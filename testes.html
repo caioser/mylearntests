@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus testes JS</title>
+    <style>
+        * {
+            background-color: #222;
+            color: #DDD;
+        }
+        a:hover,
+        li:hover {
+            background-color: #444;
+        }
+    </style>
+</head>
+<body>
+    <a href="document-write.html">document.write</a></br>
+    <a href="topbar-animation-onscroll.html">top bar with animation on scroll</a></br>
+    <a href="energybar.html">energy bar for real life</a>
+    <ul id="list"></ul>
+
+    <script src="tests.js"></script>
+    <script>
+        function see() {
+
+            
+            for (var i = 0; i < Object.keys(Test).length; i++) {
+                //console.log("Test."+Object.keys(Test)[i]+"\n");
+                //document.getElementById("list").innerHTML += Object.keys(Test)[i]+"<br/>";
+                var node = document.createElement("LI");                                // Create a <li> node
+                var textnode = document.createTextNode(Object.keys(Test)[i]);           // Create a text node
+                node.appendChild(textnode);                                             // Append the text to <li>
+                document.getElementById("list").appendChild(node);
+                document.getElementsByTagName("li")[i].addEventListener("click", Test[Object.keys(Test)[i]]);
+                document.getElementsByTagName("li")[i].style.cursor = "pointer";
+            }
+        }
+        see()
+    </script>
+</body>
+</html>
