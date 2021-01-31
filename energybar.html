@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>energy bar real life</title>
+
+    <style>
+        .padtop {
+            margin-top: 20px;
+        }
+        .block {
+            width: 100px;
+            background-color: khaki;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #bar-container {
+            border: 1px solid black;
+            border-radius: 3px;
+            padding: 3px;
+            width: 98%;
+            height: 20px;
+        }
+        #bar {
+            width:100%;
+            transition: width 1s;
+            height: inherit;
+            border-radius: inherit;
+            background-color: #00ff75;
+        }
+    </style>
+</head>
+<body onload="innerClock(1000);padTopForAll()">
+    <div id="bar-container">
+        <div id="bar"></div>
+    </div>
+    <button id="pausePlay" type="button" onclick="pausePlay()">Pause</button>
+    <button id="recharge" type="button" onclick="recharge()">Recharge</button>
+    <div  id="clock" class="block" ></div>
+
+
+
+
+
+    <script>        
+        var running = [];
+        var c = 100; console.log(c)
+        var t = t2 = [1, 0, 0];
+        var barProportion = ((t[0]*60*60)+(t[1]*60)+t[2])/100; console.log(barProportion);
+        var barCount = barProportion; console.log(barCount);
+
+        function innerClock(mili) {
+            for (var i = 0; i < t.length; i++) {
+                if (t[i].toString().length === 1) {
+                    t[i] = "0"+t[i];
+                }
+            }
+            document.getElementById("clock").innerHTML = `${t[0]}:${t[1]}:${t[2]}`;
+            t = t.map((el)=>parseInt(el));
+            
+            running[0] = setInterval(() => {
+                
+                if (t[0]+t[1]+t[2] === 1 && t[2] === 1) { console.log("stopped");
+                document.getElementById("bar").style.width = "1%";
+                clearInterval(running[0]);
+                }
+
+                if (barCount !== 0) {
+                    barCount = barCount-1; //console.log(barCount);
+                } else {
+                    document.getElementById("bar").style.width = (c-=1)+"%";
+                    barCount = barProportion;
+                }
+
+                if (t[2] === 0) {
+                    t[2] = 59;
+                    if (t[1] === 0) {
+                        t[1] = 59;
+                        t[0] -= 1;
+                    } else {
+                        t[1] -= 1;}
+                    
+                } else {
+                    t[2] -=1;
+                }
+
+                for (var i = 0; i < t.length; i++) {
+                    if (t[i].toString().length === 1) {
+                        t[i] = "0"+t[i];
+                    }
+                }
+
+                document.getElementById("clock").innerHTML = `${t[0]}:${t[1]}:${t[2]}`;
+
+                t = t.map((el)=>parseInt(el));
+
+            }, mili);
+            
+        }
+
+        function padTopForAll () {
+            var chil = document.body.children;
+            for (var i = 0; i < chil.length-1; i++) {
+                document.body.children[i].classList.add("padtop");
+            }
+        }
+
+        function spd(spd) {
+            clearInterval(running[0]);
+            document.getElementById("pausePlay").innerHTML = "Pause";
+            innerClock(spd);
+        }
+
+        function pausePlay() {
+            if (document.getElementById("pausePlay").innerHTML === "Pause") {
+                clearInterval(running[0]);
+                document.getElementById("pausePlay").innerHTML = "Play";
+            } else {
+                innerClock(1000);
+                document.getElementById("pausePlay").innerHTML = "Pause";
+            }
+        }
+
+        function recharge() {
+            clearInterval(running[0]);
+            document.getElementById("pausePlay").innerHTML = "Play";
+            document.getElementById("clock").innerHTML = `${t2[0]}:${t2[1]}:${t2[2]}`;
+            t = t2.map((el)=>parseInt(el));
+            document.getElementById("bar").style.width = "100%";
+            c = 100;
+            barCount = barProportion;
+        }
+    </script>
+</body>
+</html>
