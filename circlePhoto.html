@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle Photo</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        img {
+            height: 300px;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            width: auto;
+            height: 320px;
+
+        }
+        #one {
+            transition: width 400ms, height 400ms, border-radius 400ms;
+            border: 1px solid black;
+            border-radius: 100px;
+            width: 200px;
+            height: 200px;
+            background-image: url("assets/img/image20.png");
+            background-size: cover;
+        }
+        
+        #one:hover {
+            width: 300px;
+            height: 300px;
+            border-radius: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="one"></div>
+    </div>
+</body>
+</html>
